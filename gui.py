@@ -1,5 +1,4 @@
-from osuapi import OsuApi, ReqConnector; import os; from dotenv import load_dotenv
-import customtkinter as ctk
+from osuapi import OsuApi, ReqConnector; import os; from dotenv import load_dotenv; import customtkinter as ctk
 
 load_dotenv()
 
