@@ -10,7 +10,7 @@ if apiKey is None:
 
 app = ctk.CTk()
 app.title("Osu!")
-app.geometry("500x320")
+app.geometry("400x320")
 app.resizable(False, False)
 
 usernameCheckBoxVar = ctk.BooleanVar(value=False)
@@ -18,6 +18,18 @@ rankCheckBoxVar = ctk.BooleanVar(value=False)
 playsCheckBoxVar = ctk.BooleanVar(value=False)
 accuracyCheckBoxVar = ctk.BooleanVar(value=False)
 ppCheckBoxVar = ctk.BooleanVar(value=False)
+
+def open_stat_window(text):
+    stat_window = ctk.CTkToplevel()
+    stat_window.title("Stats")
+    stat_window.geometry("300x200")
+
+    label = ctk.CTkLabel(stat_window, text=text)
+    label.pack(pady=20)
+
+    close_button = ctk.CTkButton(stat_window, text="Close", command=stat_window.destroy)
+    close_button.pack(pady=10)
+
 
 def getStats():
     userName = usernameEntry.get()
@@ -27,7 +39,7 @@ def getStats():
             api = OsuApi(apiKey, connector=ReqConnector())
             user = api.get_user(username=userName)
             if user:
-                statString = f""
+                statString = f"Stats:\n"
                 if usernameCheckBoxVar.get():
                     username = user[0].username
                     statString += f"Username: {username}\n"
@@ -49,14 +61,15 @@ def getStats():
                     statString += f"Performance Points: {performancePoints}\n"
 
                 
-                print(f"Stats:\n{statString}")   
+                open_stat_window(statString)
             else:
                 print(f"{userName} Not Found.")
         except Exception as e:
             print(f"Failed to get stats for {userName}.\nError: {e}")
     else:
         print("Please enter a username.")
-    
+
+
 titleLabel = ctk.CTkLabel(app, text="Select the stats you want to see:")
 titleLabel.grid(column=0, row=0, padx=10, pady=10)
 
