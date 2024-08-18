@@ -1,8 +1,11 @@
-import discord
-import os
-from dotenv import load_dotenv
-from discord.ext import commands
-import getStats  
+try:
+    import discord
+    import os
+    from dotenv import load_dotenv
+    from discord.ext import commands
+    import getStats  
+except ImportError as e:
+    print(f"ImportError: {e}")
 
 load_dotenv()
 TOKEN = os.getenv('TOKEN')
